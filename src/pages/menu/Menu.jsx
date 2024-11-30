@@ -1,26 +1,22 @@
 import useMenu from './useMenu.jsx'
+import { NavLink } from "react-router";
 
 function Menu() {
 
-  const {data, voltar, opcoes} = useMenu();
+  const {pizzas} = useMenu();
 
   return (
     <>
       <h1>Menu</h1>
 
-      {data.pizzas.map( pizza => {
+      {pizzas.map( pizza => {
         return <div key={pizza.id}> 
           <h2>{pizza.nome}</h2>
-          <input type="button" value="Selecionar" onClick={() => opcoes(pizza.id)}></input>
+          <NavLink to={'/opcoes/'+pizza.id}>Selecionar</NavLink>
         </div>
       })}
 
-      {/*<h3>{data.nome}</h3>
-      <input type="text" name="nome" value={data.nome} onChange={atualiza}></input> 
-      <input type="button" name="btn1" value="Muda Nome" onClick={mudaNome}></input>
-      <input type="button" name="btn1" value="teste" onClick={teste}></input>
-      */}
-      <input type="button" name="btn1" value="Voltar" onClick={voltar}></input>
+      <NavLink to={'/'}>Voltar</NavLink>
       
     </>
   )

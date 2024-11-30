@@ -1,9 +1,12 @@
 import { Link } from "react-router";
+import { Outlet } from "react-router";
 
-function App() {
+function Home() {
   return (
     <>
-      <h1>App</h1>
+      <h1>Home</h1>
+
+      <Outlet/>
 
       <Link to="/menu">Menu</Link>
       <Link to="/login">Login</Link>
@@ -11,4 +14,4 @@ function App() {
   )
 }
 
-export default App
+export default Home

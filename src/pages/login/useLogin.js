@@ -1,17 +1,19 @@
-import { useDispatch } from 'react-redux'
-
+import { useSelector, useDispatch } from 'react-redux'
 import useForm from '../../hooks/useForm.js'
-import API from '../../api.js'
 import { setUsuario } from '../../store/mainSlice.js'
 
 const useLogin = () => {
 
+    const usuario = useSelector((state) => state.main.usuario);
+
+    // O Dispatch é usado para atualizar o estado global do sistema
     // O dispatch precisa ficar antes do useForm se não dá erro, mas não faço ideia do motivo.
     const dispatch = useDispatch();
 
-    const {data, set, atualiza, navigate} = useForm({
+    const {data, set, atualiza, navigate, iniciar, post} = useForm({
         celular:'',
-        senha:''
+        senha:'',
+        novaVariavel: 0
     });
 
 
@@ -22,26 +24,19 @@ const useLogin = () => {
             senha: data.senha
         };
 
-        API.post('/login',params)
+        post('/login',params)
         .then(response => {
-            API.iniciar(response.data.token);
+            iniciar(response.data.token);
             dispatch(setUsuario(response.data.cliente));
-        })
-        .catch(error =>{
-            alert(error.response);
+            navigate("/menu");
         });
 
     }
 
-    const voltar = () => {
-        navigate("/");
-    }
-
-
+    
     return {
         data,
         atualiza,
-        voltar,
         login
     } 
     

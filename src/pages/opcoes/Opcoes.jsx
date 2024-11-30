@@ -1,22 +1,25 @@
+import { useParams } from "react-router"
 import useOpcoes from './useOpcoes.jsx'
 
 function Opcoes() {
 
-  const {data, voltar, atualizar} = useOpcoes();
+  let { id } = useParams();
+
+  const {data, atualiza} = useOpcoes(id);
 
   return (
     <>
       <h1>Pizza {data.pizza.nome}</h1>
 
       <h1>Tamanhos</h1>
-      {data.tamanhos.map( tamanho => {
+      {data.pizza.tamanhos.map( tamanho => {
         return <div key={tamanho.id}> 
           <input
               type="radio"
               id={'tamanho'+tamanho.id}
               name="tamanho"
               value={tamanho.id}
-              onChange={atualizar}
+              onChange={atualiza}
           />
           <label
             htmlFor={'tamanho'+tamanho.id}
@@ -28,9 +31,6 @@ function Opcoes() {
 
       <p>Tamanho: {data.tamanho}</p>
 
-      <input type="button" name="btn1" value="Voltar" onClick={voltar}></input>
-
-      <input type="button" name="btn1" value="Adicionar" onClick={() =>alert(data.tamanho)}></input>
 
     </>
   )

@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import useApi from './useApi.js'
 
 const useForm = (initData) => {
 
     // Define o navegador para chamar outras páginas
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     // Define o estado do componente
     const [data, setData] = useState(initData);
+
+    // Disponibiliza os métodos da useApi para os demais programas
+    const {iniciar, get, post} = useApi();
 
     //Função que atualiza o estado do componente
     function set(nome, valor) {
@@ -29,7 +33,10 @@ const useForm = (initData) => {
         data,
         set,
         atualiza,
-        navigate
+        navigate,
+        iniciar,
+        get,
+        post
     } 
 
     
